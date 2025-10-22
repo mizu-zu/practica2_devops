@@ -1,9 +1,38 @@
+version: '3.8'
+
 services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - main_app
+      - service1
+      - service2
+    networks:
+      - microservices-net
+
+  main_app:
+    build: ./main_app
+    ports:
+      - "8000:8000"
+    networks:
+      - microservices-net
+
   service1:
     build: ./service1
     ports:
       - "8001:8001"
+    networks:
+      - microservices-net
+
   service2:
     build: ./service2
     ports:
       - "8002:8002"
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    driver: bridge
