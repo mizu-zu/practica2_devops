@@ -1,0 +1,8 @@
+nginx:
+  image: nginx:latest
+  ports:
+    - "80:80"
+  deploy:
+    replicas: 1 
+    restart_policy:
+      condition: any
